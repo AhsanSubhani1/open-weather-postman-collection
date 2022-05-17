@@ -1,0 +1,308 @@
+{
+	"info": {
+		"_postman_id": "6f0bdbf8-1ddb-40aa-b460-70d3bb4f7bb8",
+		"name": "OpenWeather",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "001 - Test Coordinates of the City",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200 (OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(\"Status Code : \" + pm.response.code);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Longitude is : \"+ parseFloat(pm.collectionVariables.get(\"longitude\")) + \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.coord.lon).to.eql(parseFloat(pm.collectionVariables.get(\"longitude\")));\r",
+							"    console.log (\"Longitude is : \"+ jsonData.coord.lon);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Latitude is : \"+  parseFloat(pm.collectionVariables.get(\"latitude\"))  + \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.coord.lat).to.eql(parseFloat(pm.collectionVariables.get(\"latitude\")));\r",
+							"    console.log (\"Latitude is : \"+jsonData.coord.lat);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}?q={{city}}&appid={{appID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{city}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{appID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "002 - Test Weather Conditions of the City",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200 (OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(\"Status Code :\" + pm.response.code);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Weather Type is : \"+pm.collectionVariables.get(\"weatherType\")+ \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.weather[0].main).to.eql(pm.collectionVariables.get(\"weatherType\"));\r",
+							"    console.log (\"Weather Type is : \"+ jsonData.weather[0].main);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Weather Description is : \"+pm.collectionVariables.get(\"weatherDescription\")+ \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.weather[0].description).to.eql(pm.collectionVariables.get(\"weatherDescription\"));\r",
+							"    console.log (\"Weather Descripiton is : \"+jsonData.weather[0].description);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}?q={{city}}&appid={{appID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{city}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{appID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "003 - Test Station Conditions of the City",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200 (OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(\"Status Code :\" + pm.response.code);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Current Temperature is : \"+pm.collectionVariables.get(\"temperature\")+ \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.main.temp).to.eql(parseFloat(pm.collectionVariables.get(\"temperature\")));\r",
+							"    console.log (\"Current Temperature is : \"+ jsonData.main.temp);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Current Air Pressure is : \"+pm.collectionVariables.get(\"pressure\")+ \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.main.pressure).to.eql(parseFloat(pm.collectionVariables.get(\"pressure\")));\r",
+							"    console.log (\"Current Air Pressure is : \"+ jsonData.main.pressure);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Current Humidity is : \"+pm.collectionVariables.get(\"humidity\")+ \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.main.humidity).to.eql(parseFloat(pm.collectionVariables.get(\"humidity\")));\r",
+							"    console.log (\"Current Humidity is : \"+ jsonData.main.humidity);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify Minimum Temperature is : \"+pm.collectionVariables.get(\"temp_min\")+ \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.main.temp_min).to.eql(parseFloat(pm.collectionVariables.get(\"temp_min\")));\r",
+							"    console.log (\"Minimum Temperature is : \"+ jsonData.main.temp_min);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify Maximum Temperature is : \"+pm.collectionVariables.get(\"temp_max\")+ \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.main.temp_max).to.eql(parseFloat(pm.collectionVariables.get(\"temp_max\")));\r",
+							"    console.log (\"Maximum Temperature is : \"+ jsonData.main.temp_max);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}?q={{city}}&appid={{appID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{city}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{appID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "004 - Test Wind Conditions of the City",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200 (OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(\"Status Code :\" + pm.response.code);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Wind Speed is : \"+pm.collectionVariables.get(\"speed\")+ \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.wind.speed).to.eql(parseFloat(pm.collectionVariables.get(\"speed\")));\r",
+							"    console.log (\"Wind Speed is : \"+ jsonData.wind.speed);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Wind deg is : \"+pm.collectionVariables.get(\"deg\")+ \" for \"+ (pm.collectionVariables.get(\"city\")), function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.wind.deg).to.eql(parseFloat(pm.collectionVariables.get(\"deg\")));\r",
+							"    console.log (\"Wind Speed is : \"+ jsonData.wind.deg);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}?q={{city}}&appid={{appID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{city}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{appID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "latitude",
+			"value": "51.51"
+		},
+		{
+			"key": "longitude",
+			"value": "-0.13"
+		},
+		{
+			"key": "weatherType",
+			"value": "Drizzle"
+		},
+		{
+			"key": "weatherDescription",
+			"value": "light intensity drizzle"
+		},
+		{
+			"key": "city",
+			"value": "London,uk"
+		},
+		{
+			"key": "appID",
+			"value": "b6907d289e10d714a6e88b30761fae22"
+		},
+		{
+			"key": "baseURL",
+			"value": "https://samples.openweathermap.org/data/2.5/weather"
+		},
+		{
+			"key": "temperature",
+			"value": "280.32"
+		},
+		{
+			"key": "pressure",
+			"value": "1012"
+		},
+		{
+			"key": "humidity",
+			"value": "81"
+		},
+		{
+			"key": "temp_min",
+			"value": "279.15"
+		},
+		{
+			"key": "temp_max",
+			"value": "281.15"
+		},
+		{
+			"key": "speed",
+			"value": "4.1"
+		},
+		{
+			"key": "deg",
+			"value": "80"
+		}
+	]
+}
